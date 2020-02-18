@@ -1,0 +1,11 @@
+{
+  "name": "Timelapse-Screenshot",
+  "version": "0.1.0",
+  "factorio_version": "0.18",
+  "title": "Timelapse-Screenshot",
+  "author": "V453000",
+  "contact": "",
+  "homepage": "",
+  "description": "Takes a screenshot each selected number of ticks and saves it to script-output.",
+  "dependencies": ["base"]
+}
