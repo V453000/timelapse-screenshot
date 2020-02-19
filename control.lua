@@ -1,3 +1,5 @@
+local timelapse_subfolder = 'test/'
+
 function time_format(time_int)
   local hours_int = math.floor(time_int/60/60/60)
   local remaining_ticks_minutes = time_int - hours_int*60*60*60
@@ -66,8 +68,8 @@ function timelapse_screenshot(tick)
     arg_zoom = 1/8
   end
 
-  local arg_resolution = {16*resolution_multiplier*tile_px*chunk_tiles/16, 9*resolution_multiplier*tile_px*chunk_tiles/9}
-  local arg_path = 'built-in-timelapse/' .. arg_filename_base .. '_' .. time_format(tick) .. '.png'
+  local arg_resolution = {16*resolution_multiplier*tile_px*chunk_tiles, 9*resolution_multiplier*tile_px*chunk_tiles}
+  local arg_path = 'built-in-timelapse/' .. timelapse_subfolder .. arg_filename_base .. '_' .. time_format(tick) .. '.png'
   game.take_screenshot{path = arg_path, position = arg_position, resolution = arg_resolution, zoom = arg_zoom, render_tiles = true};
 end
 
