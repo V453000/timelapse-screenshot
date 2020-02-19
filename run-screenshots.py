@@ -22,7 +22,7 @@ for f in os.listdir(save_folder):
         output_line = l
         line_start = '  local timelapse_subfolder = '
         if l[:len(line_start)] == line_start:
-          output_line = line_start + '"' + f[:-len(filename_end)] + '"\n'
+          output_line = line_start + "'" + f[:-len(filename_end)] + "/'\n"
         output_file.write(output_line)  
     output_file.close()
 
