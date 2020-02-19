@@ -20,12 +20,12 @@ for f in os.listdir(save_folder):
       all_lines = control_file.readlines()
       for l in all_lines:
         output_line = l
-        line_start = 'local timelapse_subfolder = '
+        line_start = '  local timelapse_subfolder = '
         if l[:len(line_start)] == line_start:
           output_line = line_start + '"' + f[:-len(filename_end)] + '"\n'
         output_file.write(output_line)  
     output_file.close()
-    
+
   bin_path = os.path.join(script_folder, '..', '..', 'bin', 'Releasex64vs2017', 'factorio-run.exe')
   process_line = bin_path + ' --benchmark-graphics ' + str(os.path.join('0.17-Built-in-timelapse' , f)) + ' --benchmark-ticks 21'
   process = Popen(process_line)
