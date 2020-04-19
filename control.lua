@@ -1,3 +1,5 @@
+local timelapse_screenshot_interval_ticks = settings.startup['timelapse-screenshot-interval-ticks'].value
+
 function time_format(time_int)
   local hours_int = math.floor(time_int/60/60/60)
   local remaining_ticks_minutes = time_int - hours_int*60*60*60
@@ -49,7 +51,9 @@ function move_entities(name_list, move_x, move_y, search_area)
 end
 
 function timelapse_screenshot(tick)
-  local arg_filename_base = 'built-in-timelapse'
+  local seed = game.surfaces['nauvis'].map_gen_settings.seed
+  game.print(seed)
+  local arg_filename_base = 'seed'
   local arg_position = {20, -46}
   local tile_px = 32
   local chunk_tiles = 32
@@ -120,8 +124,10 @@ script.on_event(defines.events.on_player_joined_game,
 -- take screenshot
 script.on_event(defines.events.on_tick,
   function()
-    if game.tick % (1 *1) == 0 then
-      timelapse_screenshot(game.tick)
+    if timelapse_screenshot_interval_ticks > 0 then
+      if game.tick % (timelapse_screenshot_interval_ticks) == 0 then
+        timelapse_screenshot(game.tick)
+      end
     end
   end
 )
