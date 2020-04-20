@@ -1,6 +1,9 @@
 local setting_timelapse_screenshot_interval_ticks = settings.startup['timelapse-screenshot-interval-ticks'].value
 local setting_max_resolution_x = settings.startup['timelapse-screenshot-max-resolution-x'].value
 local setting_max_resolution_y = settings.startup['timelapse-screenshot-max-resolution-y'].value
+local setting_max_tiles_x = settings.startup['timelapse-screenshot-max-tiles-x'].value
+local setting_max_tiles_y = settings.startup['timelapse-screenshot-max-tiles-y'].value
+
 
 local function time_format(time_int)
   local hours_int = math.floor(time_int/60/60/60)
@@ -95,11 +98,20 @@ local function timelapse_screenshot(tick)
   local resolution_x = resolution_multiplier * tile_px * chunk_tiles * surface_size.x
   local resolution_y = resolution_multiplier * tile_px * chunk_tiles * surface_size.y
 
-  local arg_resolution = { resolution_x, resolution_y }
+  if setting_max_tiles_x > 0 then
+    if (resolution_x / tile_px) > setting_max_tiles_x then
+      resolution_x = resolution_multiplier * tile_px * setting_max_tiles_x
+    end
+  end
+  if setting_max_tiles_y > 0 then
+    if (resolution_y / tile_px) > setting_max_tiles_y then
+      resolution_y = resolution_multiplier * tile_px * setting_max_tiles_y
+    end
+  end
 
   local timelapse_subfolder = seed .. '/'
   local arg_path = 'timelapse-screenshot/' .. timelapse_subfolder .. arg_filename_base .. '_' .. time_format(tick) .. '.png'
-  game.take_screenshot{path = arg_path, position = arg_position, resolution = arg_resolution, zoom = arg_zoom, render_tiles = true};
+  game.take_screenshot{path = arg_path, position = arg_position, resolution = { resolution_x, resolution_y }, zoom = arg_zoom, render_tiles = true};
 
   local data = {}
   data.resolution_multiplier = resolution_multiplier

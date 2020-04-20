@@ -30,4 +30,18 @@ data:extend{
     max_value = 16384,
     order = "c-b"
   },
+  {
+    type = "int-setting",
+    name = "timelapse-screenshot-max-tiles-x",
+    setting_type = "startup",
+    default_value = 0,
+    order = "d-a"
+  },
+  {
+    type = "int-setting",
+    name = "timelapse-screenshot-max-tiles-y",
+    setting_type = "startup",
+    default_value = 0,
+    order = "d-b"
+  },
 }
